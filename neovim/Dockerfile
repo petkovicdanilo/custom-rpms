@@ -1,4 +1,4 @@
-FROM centos:7 AS builder
+FROM centos:7
 
 RUN yum install -y \
 	ninja-build \
@@ -16,17 +16,10 @@ RUN yum install -y \
 
 RUN yum install -y devtoolset-10 git
 
-RUN mkdir /scripts /build
-
-COPY ./install-cmake3.sh /scripts
-RUN /scripts/install-cmake3.sh
+COPY ./install-cmake3.sh /
+RUN /install-cmake3.sh
 
 RUN git clone https://github.com/neovim/neovim /usr/local/src/neovim
 
-COPY ./neovim-build.sh /scripts
-RUN /scripts/neovim-build.sh
-
-FROM centos:7
-
-RUN mkdir /nvim
-COPY --from=builder /build /nvim
+COPY ./neovim-build.sh /
+RUN /neovim-build.sh
