@@ -2,7 +2,7 @@
 
 builder=$(buildah from centos:7)
 
-version="${1}"
+version="3.3a"
 echo "Building tmux version $version"
 
 echo "Installing dependencies and setting up environment"
@@ -11,23 +11,28 @@ buildah run $builder -- bash -c \
 		gcc \
 		libevent-devel \
 		ncurses-devel \
-		git \
+		wget \
 		automake \
 		make \
-		bison"
+		bison \
+		rpmdevtools"
 
 buildah run $builder -- bash -c \
-	"git clone https://github.com/tmux/tmux /usr/local/src/tmux &&
-	cd /usr/local/src/tmux && git checkout 3.3a &&
-	
-	mkdir /build && sh autogen.sh && ./configure --prefix=/tmux && 
-	make && make install"
+	"rpmdev-setuptree &&
+	wget https://github.com/tmux/tmux/archive/refs/tags/$version.tar.gz -P ~/rpmbuild/SOURCES"
 
-rm -rf build/$version
-mkdir -p build/$version
+buildah copy $builder ./tmux.spec '/root/rpmbuild/SPECS/'
+
+echo "Bulding tmux RPM"
+buildah run $builder -- bash -c \
+	"rpmbuild -bs ~/rpmbuild/SPECS/tmux.spec &&
+	rpmbuild -bb ~/rpmbuild/SPECS/tmux.spec"
+
+rm -rf build
+mkdir -p build
 
 mnt=$(buildah mount $builder)
-cp -r $mnt/tmux build/$version
+cp -r $mnt/root/rpmbuild/RPMS/x86_64/* $mnt/root/rpmbuild/SRPMS/* build/
 buildah umount $builder
 
 buildah rm $builder
