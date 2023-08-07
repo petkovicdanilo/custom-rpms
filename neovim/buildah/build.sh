@@ -6,45 +6,48 @@ version="${1}"
 echo "Building neovim version $version"
 
 echo "Installing dependencies and setting up environment"
+
+buildah run $builder -- bash -c \
+	"yum install -y epel-release centos-release-scl"
 buildah run $builder -- bash -c \
 	"yum install -y \
+		cmake3 \
+		git \
+		devtoolset-10-gcc \
+		devtoolset-10-gcc-c++ \
+		desktop-file-utils \
+		fdupes \
+		gettext \
+		gperf \
 		ninja-build \
-		libtool \
+		unzip \
 		autoconf \
 		automake \
 		make \
-		pkgconfig \
-		unzip \
-		patch \
-		gettext \
+		pkconfig \
 		curl \
-		centos-release-scl \
-		https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm"
-
-buildah run $builder -- bash -c "yum install -y devtoolset-10 git"
+		jemalloc-devel \
+		wget \
+		rpmdevtools"
 
 buildah run $builder -- bash -c \
-	"mkdir -p /usr/local/src/cmake && pushd /usr/local/src/cmake &&
-	curl -LO https://github.com/Kitware/CMake/releases/download/v3.22.2/cmake-3.22.2-linux-x86_64.tar.gz &&
-	tar -xzf cmake-3.22.2-linux-x86_64.tar.gz && 
-	cp -r cmake-3.22.2-linux-x86_64/* /usr/local &&
-	popd"
+	"rpmdev-setuptree &&
+	wget https://github.com/neovim/neovim/archive/refs/tags/v$version.tar.gz -P ~/rpmbuild/SOURCES"
 
-echo "Cloning neovim repo"
-buildah run $builder -- bash -c "git clone https://github.com/neovim/neovim /usr/local/src/neovim"
+echo "Copying specs into build container"
+buildah copy $builder ./neovim.spec '/root/rpmbuild/SPECS/'
+buildah copy $builder ./sysinit.vim ./spec-template ./neovim-lua-bit32.patch '/root/rpmbuild/SOURCES/'
 
-echo "Building"
+echo "Bulding neovim RPM"
 buildah run $builder -- bash -c \
-	"pushd /usr/local/src/neovim &&
-	source /opt/rh/devtoolset-10/enable &&
-	git checkout $version &&
-	make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=/nvim install"
+	"QA_SKIP_BUILD_ROOT=1 rpmbuild -bs ~/rpmbuild/SPECS/neovim.spec --with jemalloc &&
+	 QA_SKIP_BUILD_ROOT=1 rpmbuild -bb ~/rpmbuild/SPECS/neovim.spec --with jemalloc"
 
-rm -rf build/$version
-mkdir -p build/$version
+rm -rf build
+mkdir -p build
 
 mnt=$(buildah mount $builder)
-cp -r $mnt/nvim build/$version
+cp -r $mnt/root/rpmbuild/RPMS/x86_64/* $mnt/root/rpmbuild/SRPMS/* build/
 buildah umount $builder
 
 buildah rm $builder

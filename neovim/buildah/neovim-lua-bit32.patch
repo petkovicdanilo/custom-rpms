@@ -1,0 +1,36 @@
+Index: neovim-0.9.1/CMakeLists.txt
+===================================================================
+--- neovim-0.9.1.orig/CMakeLists.txt	2023-04-07 18:47:09.146841186 +0200
++++ neovim-0.9.1/CMakeLists.txt	2023-04-07 18:47:39.100006585 +0200
+@@ -163,7 +163,7 @@ foreach(CFGNAME ${CMAKE_CONFIGURATION_TY
+   set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${CFGNAME} ${CMAKE_BINARY_DIR}/lib)
+ endforeach()
+ 
+-set(LUA_DEPENDENCIES lpeg mpack bit)
++set(LUA_DEPENDENCIES lpeg mpack bit32)
+ if(NOT LUA_PRG)
+   foreach(CURRENT_LUA_PRG luajit lua5.1 lua5.2 lua)
+     unset(_CHECK_LUA_PRG CACHE)
+Index: neovim-0.9.1/src/nvim/ex_cmds.lua
+===================================================================
+--- neovim-0.9.1.orig/src/nvim/ex_cmds.lua	2023-04-07 18:47:05.066818656 +0200
++++ neovim-0.9.1/src/nvim/ex_cmds.lua	2023-04-07 18:47:09.147841191 +0200
+@@ -1,4 +1,4 @@
+-local bit = require 'bit'
++local bit = require 'bit32'
+ 
+ local module = {}
+ 
+Index: neovim-0.9.1/src/nvim/generators/gen_ex_cmds.lua
+===================================================================
+--- neovim-0.9.1.orig/src/nvim/generators/gen_ex_cmds.lua	2023-04-07 18:47:05.066818656 +0200
++++ neovim-0.9.1/src/nvim/generators/gen_ex_cmds.lua	2023-04-07 18:47:09.147841191 +0200
+@@ -22,7 +22,7 @@ local defsfname = autodir .. '/ex_cmds_d
+ local enumfile = io.open(enumfname, 'w')
+ local defsfile = io.open(defsfname, 'w')
+ 
+-local bit = require 'bit'
++local bit = require 'bit32'
+ local ex_cmds = require('ex_cmds')
+ local defs = ex_cmds.cmds
+ local flags = ex_cmds.flags
