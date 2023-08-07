@@ -2,8 +2,8 @@
 
 builder=$(buildah from centos:7)
 
-tag="${1}"
-echo "Building rust-analyzer version $tag"
+version="${1}"
+echo "Building rust-analyzer version $version"
 
 buildah run $builder -- bash -c \
     "yum groupinstall -y \"Development tools\" &&

@@ -2,7 +2,7 @@
 
 builder=$(buildah from centos:7)
 
-version="3.3a"
+version="${1}"
 echo "Building tmux version $version"
 
 echo "Installing dependencies and setting up environment"

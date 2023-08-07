@@ -1,3 +1,5 @@
+%define debug_package %{nil}
+
 Name:           tmux
 Version:        3.3a
 Release:        1%{?dist}
