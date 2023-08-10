@@ -2,7 +2,7 @@
 
 Name:           tmux
 Version:        3.3a
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A terminal multiplexer
  
 Group:          Applications/System
@@ -11,6 +11,7 @@ Group:          Applications/System
 License:        ISC and BSD
 URL:            http://sourceforge.net/projects/tmux
 Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/%{version}.tar.gz
+Source1:        bash_completion_tmux.sh
  
 BuildRequires:  gcc
 BuildRequires:  make
@@ -18,8 +19,6 @@ BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  ncurses-devel
 BuildRequires:  libevent-devel
-
-Requires:       libevent
  
 %description
 tmux is a terminal multiplexer: it enables a number of terminals to be created,
@@ -37,6 +36,7 @@ make
 %install
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} INSTALLBIN="install -p -m 755" INSTALLMAN="install -p -m 644"
+install -Dpm 644 %{SOURCE1} %{buildroot}%{_datadir}/bash-completion/completions/tmux
  
 %post
 if [ ! -f %{_sysconfdir}/shells ] ; then
@@ -55,8 +55,13 @@ fi
 %doc CHANGES COPYING
 %{_bindir}/tmux
 %{_mandir}/man1/tmux.1.*
+%{_datadir}/bash-completion/completions/tmux
  
 %changelog
+* Thu Aug 10 2023 Danilo Petkovic <petkovicdanilo97@gmail.com> - 3.3a-2
+- Add bash completions.
+- Remove libevent requirement as it is not needed.
+
 * Sun Jul 30 2023 Danilo Petkovic <petkovicdanilo97@gmail.com> - 3.3a-1
 - Initial RPM release.
  

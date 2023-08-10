@@ -22,6 +22,7 @@ buildah run $builder -- bash -c \
 	wget https://github.com/tmux/tmux/archive/refs/tags/$version.tar.gz -P ~/rpmbuild/SOURCES"
 
 buildah copy $builder ./tmux.spec '/root/rpmbuild/SPECS/'
+buildah copy $builder ./bash_completion_tmux.sh '/root/rpmbuild/SOURCES/'
 
 echo "Bulding tmux RPM"
 buildah run $builder -- bash -c \
