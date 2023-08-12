@@ -28,6 +28,13 @@ buildah run $builder -- bash -c \
 		curl \
 		jemalloc-devel \
 		wget \
+		luajit-devel \
+		lua-lpeg \
+		lua-mpack \
+		msgpack-devel \
+		libtermkey-devel \
+		libuv-devel \
+		unibilium-devel \
 		rpmdevtools"
 
 buildah run $builder -- bash -c \

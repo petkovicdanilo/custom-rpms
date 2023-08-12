@@ -1,12 +1,12 @@
+%define  debug_package %{nil}
+
 %bcond_with jemalloc
 
 %bcond_without luajit
 
-%define debug_package %{nil}
-
 Name:           neovim
 Version:        0.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
@@ -19,24 +19,35 @@ Source2:        spec-template
 Patch1000:      neovim-lua-bit32.patch
 
 BuildRequires:  cmake3
-BuildRequires:  git
 BuildRequires:  devtoolset-10-gcc
 BuildRequires:  devtoolset-10-gcc-c++
 BuildRequires:  desktop-file-utils
 BuildRequires:  fdupes
 BuildRequires:  gettext
 BuildRequires:  gperf
-BuildRequires:  ninja-build
-BuildRequires:  unzip
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  make
-BuildRequires:  pkgconfig
-BuildRequires:  curl
+BuildRequires:  lua-lpeg
+BuildRequires:  lua-mpack
+%if %{with luajit}
+BuildRequires:  luajit-devel
+Requires:       luajit
+%else
+BuildRequires:  lua-devel
+BuildRequires:  lua-bit32
+Requires:       lua-bit32
+%endif
 %if %{with jemalloc}
 BuildRequires:  jemalloc-devel
 Requires:       jemalloc
 %endif
+BuildRequires:  msgpack-devel >= 3.1.0
+BuildRequires:  pkgconfig(termkey)
+BuildRequires:  pkgconfig(unibilium)
+BuildRequires:  libtermkey-devel
+Requires:       libtermkey
+BuildRequires:  libuv-devel
+Requires:       libuv
+BuildRequires:  unibilium-devel
+Requires:       unibilium
 
 %description
 Neovim is a refactor - and sometimes redactor - in the tradition of
@@ -55,12 +66,40 @@ parts of Vim, without compromise, and more.
 %patch -P 1000 -p1
 %endif
 
-%install
-# set vars to make build reproducible; see config/CMakeLists.txt
+%build
 HOSTNAME=neovim
 USERNAME=neovim
 source /opt/rh/devtoolset-10/enable
-make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=%{buildroot}%{_prefix} install
+mkdir .deps
+cd .deps
+cmake3 ../cmake.deps \
+	-G Ninja \
+	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DUSE_BUNDLED=OFF \
+	-DUSE_BUNDLED_LUV=ON \
+	-DUSE_BUNDLED_LIBVTERM=ON \
+	-DUSE_BUNDLED_TS=ON \
+	-DUSE_BUNDLED_TS_PARSERS=ON
+ninja
+cd ..
+
+mkdir build
+cd build
+cmake3 .. \
+	-G Ninja \
+	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+	-DCMAKE_INSTALL_PREFIX=%{_prefix}
+cd ..
+
+%install
+HOSTNAME=neovim
+USERNAME=neovim
+source /opt/rh/devtoolset-10/enable
+cd build
+DESTDIR=%{buildroot} ninja install
+cd ..
+
 install -p -m 644 %SOURCE1 %{buildroot}%{_datadir}/nvim/sysinit.vim
 install -p -m 644 %SOURCE2 %{buildroot}%{_datadir}/nvim/template.spec
 
@@ -1023,25 +1062,6 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/lua/editorconfig.lua
 %{_datadir}/nvim/runtime/lua/man.lua
 
-%dir %{_datadir}/nvim/runtime/lua/jit
-%{_datadir}/nvim/runtime/lua/jit/bc.lua
-%{_datadir}/nvim/runtime/lua/jit/bcsave.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_arm.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_arm64.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_arm64be.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_mips.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_mips64.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_mips64el.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_mipsel.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_ppc.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_x64.lua
-%{_datadir}/nvim/runtime/lua/jit/dis_x86.lua
-%{_datadir}/nvim/runtime/lua/jit/dump.lua
-%{_datadir}/nvim/runtime/lua/jit/p.lua
-%{_datadir}/nvim/runtime/lua/jit/v.lua
-%{_datadir}/nvim/runtime/lua/jit/vmdef.lua
-%{_datadir}/nvim/runtime/lua/jit/zone.lua
-
 %dir %{_datadir}/nvim/runtime/lua/nvim
 %{_datadir}/nvim/runtime/lua/nvim/health.lua
 
@@ -1908,5 +1928,8 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Sat Aug 12 2023 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.9.1-2
+- Build using packaged dependencies (where possible)
+
 * Sun Aug 06 2023 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.9.1-1
 - Initial RPM release.
