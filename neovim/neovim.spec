@@ -5,8 +5,8 @@
 %bcond_without luajit
 
 Name:           neovim
-Version:        0.9.1
-Release:        2%{?dist}
+Version:        0.9.5
+Release:        1%{?dist}
 
 License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
@@ -545,6 +545,7 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/ftplugin/css.vim
 %{_datadir}/nvim/runtime/ftplugin/cucumber.vim
 %{_datadir}/nvim/runtime/ftplugin/cvsrc.vim
+%{_datadir}/nvim/runtime/ftplugin/d.lua
 %{_datadir}/nvim/runtime/ftplugin/debchangelog.vim
 %{_datadir}/nvim/runtime/ftplugin/debcontrol.vim
 %{_datadir}/nvim/runtime/ftplugin/denyhosts.vim
@@ -1070,7 +1071,7 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/lua/vim/_editor.lua
 %{_datadir}/nvim/runtime/lua/vim/_init_packages.lua
 %{_datadir}/nvim/runtime/lua/vim/_inspector.lua
-%{_datadir}/nvim/runtime/lua/vim/_meta.lua
+%{_datadir}/nvim/runtime/lua/vim/_options.lua
 %{_datadir}/nvim/runtime/lua/vim/_watch.lua
 %{_datadir}/nvim/runtime/lua/vim/diagnostic.lua
 %{_datadir}/nvim/runtime/lua/vim/filetype.lua
@@ -1928,6 +1929,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Fri Mar 01 2024 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.9.5-1
+- Update to 0.9.5
+
 * Sat Aug 12 2023 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.9.1-2
 - Build using packaged dependencies (where possible)
 
