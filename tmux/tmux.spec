@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name:           tmux
-Version:        3.3a
-Release:        2%{?dist}
+Version:        3.4
+Release:        1%{?dist}
 Summary:        A terminal multiplexer
  
 Group:          Applications/System
@@ -58,6 +58,9 @@ fi
 %{_datadir}/bash-completion/completions/tmux
  
 %changelog
+* Fri Mar 01 2024 Danilo Petkovic <petkovicdanilo97@gmail.com> - 3.4-1
+- Update to 3.4
+
 * Thu Aug 10 2023 Danilo Petkovic <petkovicdanilo97@gmail.com> - 3.3a-2
 - Add bash completions.
 - Remove libevent requirement as it is not needed.
