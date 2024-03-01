@@ -52,3 +52,8 @@ yum install <package-name>.rpm
 Note: Use binary `.rpm` here, not `.src.rpm`.
 
 You can find installation instructions inside every package separately.
+
+## Latest builds
+- neovim [0.9.5](https://github.com/petkovicdanilo/centos7-packages/releases/tag/neovim-0.9.5-1)
+- rust-analyzer [2024-02-26](https://github.com/petkovicdanilo/centos7-packages/releases/tag/rust-analyzer-2024-02-26)
+- tmux [3.4](https://github.com/petkovicdanilo/centos7-packages/releases/tag/tmux-3.4-1)
