@@ -1,0 +1,16 @@
+Index: tmux-3.5a/compat/systemd.c
+===================================================================
+--- tmux-3.5a.orig/compat/systemd.c	2024-12-27 21:18:19.073208492 +0100
++++ tmux-3.5a/compat/systemd.c	2024-12-27 21:08:06.373206870 +0100
+@@ -30,6 +30,11 @@
+ 
+ #include "tmux.h"
+ 
++#ifndef SD_ID128_UUID_FORMAT_STR
++#define SD_ID128_UUID_FORMAT_STR \
++	"%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x"
++#endif
++
+ int
+ systemd_activated(void)
+ {
