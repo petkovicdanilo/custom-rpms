@@ -11,7 +11,7 @@ make
 ## Installation
 
 To install `tmux` either build it yourself 
-or download desired version from [Release](https://github.com/petkovicdanilo/centos7-packages/releases)
+or download desired version from [Release](https://github.com/petkovicdanilo/custom-rpms/releases)
 page. When you have RPM on your system, run
 
 ```bash
