@@ -31,14 +31,10 @@ just man
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_bindir}
-cp target/release/eza %{buildroot}%{_bindir}
+install -Dpm 0755 target/release/eza -t %{buildroot}%{_bindir}
 
-mkdir -p %{buildroot}%{_mandir}/man1
-cp target/man/eza.1 %{buildroot}%{_mandir}/man1
-
-mkdir -p %{buildroot}%{_mandir}/man5
-cp target/man/{eza_colors-explanation.5,eza_colors.5} %{buildroot}%{_mandir}/man5
+install -Dpm 0644 target/man/*.1 -t %{buildroot}%{_mandir}/man1/
+install -Dpm 0644 target/man/*.5 -t %{buildroot}%{_mandir}/man5/
 
 %post
 

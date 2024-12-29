@@ -33,8 +33,7 @@ cargo build --release
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}%{_bindir}
-cp target/release/starship %{buildroot}%{_bindir}
+install -Dpm 0755 target/release/starship -t %{buildroot}%{_bindir}
 
 %post
 
