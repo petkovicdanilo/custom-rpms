@@ -30,7 +30,6 @@ buildah run $builder -- bash -c \
 	wget https://github.com/golang/tools/archive/refs/tags/gopls/v$version.tar.gz -P /root/rpmbuild/SOURCES"
 
 buildah copy $builder ./gopls.spec '/root/rpmbuild/SPECS/'
-buildah copy $builder ./gopls-version.patch '/root/rpmbuild/SOURCES/'
 
 echo "Bulding gopls RPM"
 buildah run $builder -- bash -c \

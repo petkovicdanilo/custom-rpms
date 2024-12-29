@@ -9,8 +9,6 @@ License:        BSD-3-Clause
 URL:            https://github.com/golang/tools/
 Source0:	https://github.com/golang/tools/archive/refs/tags/gopls/v%{version}.tar.gz
 
-Patch1000:      gopls-version.patch
-
 # golang also required for build, but not provided through RPM
 
 %description
@@ -26,11 +24,9 @@ each client editor.
 %prep
 %setup -q -n tools-gopls-v%{version}
 
-%patch -P 1000 -p1
-
 %build
 cd gopls
-PATH=$PATH:/usr/local/go/bin go build
+PATH=$PATH:/usr/local/go/bin go build -ldflags="-X 'main.version=v%{version}'"
 
 %install
 rm -rf %{buildroot}
