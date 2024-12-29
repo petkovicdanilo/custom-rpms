@@ -15,7 +15,7 @@ or download desired version from [Release](https://github.com/petkovicdanilo/cus
 page. When you have RPM on your system, run
 
 ```bash
-yum install <neovim-rpm-name>.rpm
+dnf install <neovim-rpm-name>.rpm
 ```
 
 Note: Install with binary `.rpm`, not `.src.rpm`.
