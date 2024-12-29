@@ -24,6 +24,7 @@ BuildRequires:  ncurses-devel
 BuildRequires:  libevent-devel
 BuildRequires:  libutempter-devel
 BuildRequires:  systemd-devel
+BuildRequires:  jemalloc-devel
  
 %description
 tmux is a terminal multiplexer: it enables a number of terminals to be created,
@@ -37,7 +38,7 @@ continue running in the background, then later reattached.
  
 %build
 ./autogen.sh
-./configure --prefix=%{_prefix} --enable-sixel --enable-utempter --enable-systemd
+./configure --prefix=%{_prefix} --enable-sixel --enable-utempter --enable-systemd --enable-jemalloc
 make
  
 %install

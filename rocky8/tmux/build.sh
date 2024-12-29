@@ -8,7 +8,7 @@ echo "Building tmux version $version"
 echo "Installing dependencies and setting up environment"
 
 buildah run $builder -- bash -c \
-	"dnf install -y 'dnf-command(config-manager)'"
+	"dnf install -y 'dnf-command(config-manager)' epel-release"
 
 buildah run $builder -- bash -c \
 	"dnf config-manager --set-enabled powertools"
@@ -25,6 +25,7 @@ buildah run $builder -- bash -c \
 		byacc \
 		libutempter-devel \
 		systemd-devel \
+		jemalloc-devel \
 		rpmdevtools"
 
 buildah run $builder -- bash -c \
