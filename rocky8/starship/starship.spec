@@ -3,7 +3,7 @@
 Name:           starship
 Version:        1.21.1
 Release:        1%{?dist}
-Summary:        A modern alternative to ls
+Summary:        The minimal, blazing-fast, and infinitely customizable prompt for any shell!
 
 License:        EUPL-1.2
 URL:            https://github.com/starship/starship
