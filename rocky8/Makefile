@@ -1,5 +1,5 @@
 .PHONY: all
-all: tmux neovim eza starship
+all: tmux neovim eza starship fzf
 
 .PHONY: tmux
 tmux:
@@ -16,3 +16,7 @@ eza:
 .PHONY: starship
 starship:
 	cd starship ; $(MAKE) ; cd -
+
+.PHONY: fzf
+fzf:
+	cd fzf ; $(MAKE) ; cd -
