@@ -41,6 +41,15 @@ install -Dpm 0644 target/man/*.5 -t %{buildroot}%{_mandir}/man5/
 %postun
 
 %files
+%license LICENSE.txt
+
+%doc CHANGELOG.md
+%doc CODE_OF_CONDUCT.md
+%doc CONTRIBUTING.md
+%doc README.md
+%doc SECURITY.md
+%doc TESTING.md
+
 %{_bindir}/eza
 %{_mandir}/man1/eza.1.*
 %{_mandir}/man5/eza_colors-explanation.5.*

@@ -40,6 +40,13 @@ install -Dpm 0755 target/release/starship -t %{buildroot}%{_bindir}
 %postun
 
 %files
+%license LICENSE
+
+%doc CHANGELOG.md
+%doc CODE_OF_CONDUCT.md
+%doc CONTRIBUTING.md
+%doc README.md
+
 %{_bindir}/starship
 
 %changelog
