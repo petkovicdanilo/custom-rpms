@@ -1,5 +1,5 @@
 .PHONY: all
-all: tmux neovim eza starship fzf ripgrep gopls
+all: tmux neovim eza starship fzf ripgrep gopls jq
 
 .PHONY: tmux
 tmux:
@@ -28,3 +28,7 @@ ripgrep:
 .PHONY: gopls
 gopls:
 	cd gopls ; $(MAKE) ; cd -
+
+.PHONY: jq
+jq:
+	cd jq ; $(MAKE) ; cd -
