@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           starship
-Version:        1.21.1
+Version:        1.22.1
 Release:        1%{?dist}
 Summary:        The minimal, blazing-fast, and infinitely customizable prompt for any shell!
 
@@ -50,6 +50,9 @@ install -Dpm 0755 target/release/starship -t %{buildroot}%{_bindir}
 %{_bindir}/starship
 
 %changelog
+* Sun Jan 12 2025 Danilo Petkovic <petkovicdanilo97@gmail.com> - 1.22.1-1
+- Update to 1.22.1
+
 * Sun Dec 29 2024 Danilo Petkovic <petkovicdanilo97@gmail.com> - 1.21.1-1
 - Initial RPM release.
 
