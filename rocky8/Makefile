@@ -1,5 +1,5 @@
 .PHONY: all
-all: tmux neovim eza starship fzf ripgrep gopls jq zsh-syntax-highlighting
+all: tmux neovim eza starship fzf ripgrep gopls jq zsh-syntax-highlighting zsh-completions
 
 .PHONY: tmux
 tmux:
@@ -36,3 +36,7 @@ jq:
 .PHONY: zsh-syntax-highlighting
 zsh-syntax-highlighting:
 	cd zsh-syntax-highlighting ; $(MAKE) ; cd -
+
+.PHONY: zsh-completions
+zsh-completions:
+	cd zsh-completions ; $(MAKE) ; cd -
