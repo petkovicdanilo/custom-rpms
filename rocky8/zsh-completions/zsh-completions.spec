@@ -26,9 +26,9 @@ This projects aims at gathering/developing new completion scripts that are not a
 
 %install
 rm -rf %{buildroot}
-install -Dpm 0755 zsh-completions.plugin.zsh -t %{buildroot}%{_datadir}/zsh-completions
-install -d %{buildroot}%{_datadir}/zsh-completions/src
-install -Dpm 0664 src/* -t %{buildroot}%{_datadir}/zsh-completions/src
+install -Dpm 0755 %{name}.plugin.zsh -t %{buildroot}%{_datadir}/%{name}
+install -d %{buildroot}%{_datadir}/%{name}/src
+install -Dpm 0664 src/* -t %{buildroot}%{_datadir}/%{name}/src
 
 %check
 
@@ -37,8 +37,8 @@ install -Dpm 0664 src/* -t %{buildroot}%{_datadir}/zsh-completions/src
 %doc CONTRIBUTING.md
 %license LICENSE
 
-%{_datadir}/zsh-completions/zsh-completions.plugin.zsh
-%{_datadir}/zsh-completions/src/*
+%{_datadir}/%{name}/zsh-completions.plugin.zsh
+%{_datadir}/%{name}/src/*
 
 %changelog
 * Sun Jan 12 2025 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.35.0-1
