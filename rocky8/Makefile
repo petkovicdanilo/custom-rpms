@@ -1,5 +1,5 @@
 .PHONY: all
-all: tmux neovim eza starship fzf ripgrep gopls jq zsh-syntax-highlighting zsh-completions
+all: tmux neovim eza starship fzf ripgrep gopls jq zsh-syntax-highlighting zsh-completions zsh-autosuggestions
 
 .PHONY: tmux
 tmux:
@@ -40,3 +40,7 @@ zsh-syntax-highlighting:
 .PHONY: zsh-completions
 zsh-completions:
 	cd zsh-completions ; $(MAKE) ; cd -
+
+.PHONY: zsh-autosuggestions
+zsh-autosuggestions:
+	cd zsh-autosuggestions ; $(MAKE) ; cd -
