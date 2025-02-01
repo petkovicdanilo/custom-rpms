@@ -5,7 +5,7 @@
 %bcond_without luajit
 
 Name:           neovim
-Version:        0.10.3
+Version:        0.10.4
 Release:        1%{?dist}
 
 License:        Apache-2.0 AND Vim
@@ -400,5 +400,8 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/ja/vim-01-beginner.tutor.json
 
 %changelog
+* Sat Jan 01 2025 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.10.4-1
+- Update to 0.10.4
+
 * Sat Dec 28 2024 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.10.3-1
 - Initial version
