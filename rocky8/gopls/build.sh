@@ -16,7 +16,7 @@ buildah run $builder -- bash -c \
 
 echo "Installing Golang"
 
-GO_VERSION=1.23.4
+GO_VERSION=1.23.6
 
 buildah run $builder -- bash -c \
 	"wget https://go.dev/dl/go$GO_VERSION.linux-amd64.tar.gz -P /tmp && \
