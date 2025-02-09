@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           fzf
-Version:        0.58.0
+Version:        0.59.0
 Release:        1%{?dist}
 Summary:        A command-line fuzzy finder
 
@@ -63,7 +63,10 @@ install -Dpm0644 shell/key-bindings.* %{buildroot}%{_datadir}/fzf/shell/
 %{_datadir}/fzf/shell/*
 
 %changelog
-* Sat Jan 1 2025 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.58.0-1
+* Sun Feb 09 2025 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.59.0-1
+- Update to 0.59.0
+
+* Sat Jan 01 2025 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.58.0-1
 - Update to 0.58.0
 
 * Sun Dec 29 2024 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.57.0-1
