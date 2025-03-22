@@ -1,3 +1,3 @@
-version ?= "0.59.0"
+version ?= "0.60.3"
 rpm:
 	buildah unshare ./build.sh $(version)
