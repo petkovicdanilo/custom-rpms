@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           eza
-Version:        0.20.20
+Version:        0.20.24
 Release:        1%{?dist}
 Summary:        A modern alternative to ls
 
@@ -56,6 +56,9 @@ install -Dpm 0644 target/man/*.5 -t %{buildroot}%{_mandir}/man5/
 %{_mandir}/man5/eza_colors.5.*
 
 %changelog
+* Sat Mar 22 2025 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.20.24-1
+- Update to 0.20.24
+
 * Sun Feb 01 2025 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.20.20-1
 - Update to 0.20.20
 
