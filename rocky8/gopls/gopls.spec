@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           gopls
-Version:        0.17.1
+Version:        0.18.1
 Release:        1%{?dist}
 Summary:        gopls, the Go language server
 
@@ -46,6 +46,9 @@ install -vDpm 0755 gopls/gopls %{buildroot}%{_bindir}/
 %{_bindir}/gopls
 
 %changelog
+* Sat Mar 22 2024 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.18.1-1
+- Update to 0.18.1
+
 * Sun Dec 29 2024 Danilo Petkovic <petkovicdanilo97@gmail.com> - 0.17.1-1
 - Initial RPM release.
 
